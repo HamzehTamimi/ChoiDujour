@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Common -->
+    <color name="sep_theme_background_color">@color/sesl_round_and_bgcolor_light</color>
+
+</resources>

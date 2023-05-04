@@ -1,8 +1,8 @@
 <resources>
 
-    <style name="Theme.ChoiDujour" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:statusBarColor">@color/sesl_round_and_bgcolor_dark</item>
-        <item name="android:navigationBarColor">@color/sesl_round_and_bgcolor_dark</item>
+    <style name="Theme.OneUI" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:statusBarColor">@color/sep_theme_background_color</item>
+        <item name="android:navigationBarColor">@color/sep_theme_background_color</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowLightNavigationBar">false</item>
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
