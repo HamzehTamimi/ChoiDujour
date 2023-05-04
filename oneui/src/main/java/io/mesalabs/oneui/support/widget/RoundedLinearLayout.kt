@@ -54,10 +54,13 @@ class RoundedLinearLayout @JvmOverloads constructor(
         mRoundedCorner.drawRoundedCorner(canvas)
     }
 
-    fun setRoundedCorners(@IntRange(from = 0, to = 15) corners: Int) {
-        mRoundedCorner.roundedCorners = corners
-        invalidate()
-    }
+    @setparam:IntRange(from = 0, to = 15)
+    var roundedCorners: Int
+        get() = mRoundedCorner.roundedCorners
+        set(corners) {
+            mRoundedCorner.roundedCorners = corners
+            invalidate()
+        }
 
     fun setRoundedCornersColor(@IntRange(from = 0, to = 15) corners: Int,
                                @ColorInt color: Int) {
