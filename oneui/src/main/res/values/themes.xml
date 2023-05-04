@@ -1,12 +1,16 @@
 <resources>
 
     <style name="Theme.OneUI" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/sep_theme_background_color</item>
-        <item name="android:navigationBarColor">@color/sep_theme_background_color</item>
+        <item name="android:statusBarColor">@color/sep_theme_round_and_bg_color</item>
+        <item name="android:navigationBarColor">@color/sep_theme_round_and_bg_color</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowLightNavigationBar">true</item>
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
         <item name="android:listChoiceBackgroundIndicator">?attr/listChoiceBackgroundIndicator</item>
+        <item name="appBarLayoutStyle">@style/Widget.Design.AppBarLayout</item>
+        <item name="bottomNavigationStyle">@style/Widget.Design.Light.BottomNavigationView</item>
+        <item name="collapsingToolbarLayoutStyle">@style/Widget.Design.Light.CollapsingToolbar</item>
+        <item name="tabStyle">@style/Widget.Design.TabLayout.Light</item>
     </style>
 
 </resources>

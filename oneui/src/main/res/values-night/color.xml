@@ -2,6 +2,7 @@
 <resources>
 
     <!-- Common -->
-    <color name="sep_theme_background_color">@color/sesl_round_and_bgcolor_dark</color>
+    <color name="sep_theme_round_and_bg_color">@color/sesl_round_and_bgcolor_dark</color>
+    <color name="sep_theme_background_color">@color/sesl_background_color_dark</color>
 
 </resources>
