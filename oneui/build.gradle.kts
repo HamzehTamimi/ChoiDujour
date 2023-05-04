@@ -1,26 +1,19 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     kotlin("android")
 }
 
-val versionMajor = 0
-val versionMinor = 0
-val versionPatch = 1
-
 android {
-    namespace = "io.mesalabs.choidujour"
+    namespace = "io.mesalabs.oneui"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "io.mesalabs.choidujour"
         minSdk = 30
-        targetSdk = 33
-        versionCode = versionMajor * 100000 + versionMinor * 1000 + versionPatch
-        versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
     }
 
-    lint {
-        disable += "AppCompatResource"
+    buildFeatures {
+        buildConfig = false
+        viewBinding = true
     }
 
     compileOptions {
@@ -34,7 +27,6 @@ android {
 
     buildTypes {
         debug {
-            isDebuggable = true
             isMinifyEnabled = false
             isShrinkResources = false
             proguardFiles(
@@ -43,7 +35,6 @@ android {
             )
         }
         release {
-            isDebuggable = false
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
@@ -69,10 +60,7 @@ dependencies {
     }
     // AndroidX: https://developer.android.com/jetpack/androidx/versions
     implementation("androidx.core:core-ktx:1.10.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.viewpager2:viewpager2:1.0.0") {
         exclude(group = "androidx.recyclerview", module = "recyclerview")
     }
-
-    implementation(project(":oneui"))
 }
