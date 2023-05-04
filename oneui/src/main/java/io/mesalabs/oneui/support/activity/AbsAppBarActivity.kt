@@ -51,7 +51,7 @@ import io.mesalabs.oneui.support.base.BaseActivity
  * https://github.com/OneUIProject/oneui-design/blob/main/lib/src/main/java/dev/oneuiproject/oneui/layout/ToolbarLayout.java
  */
 abstract class AbsAppBarActivity : BaseActivity() {
-    private val TAG: String = javaClass.simpleName
+    protected val TAG: String = javaClass.simpleName
 
     // AppBar flags
     protected var appBarExpandable: Boolean = true
@@ -77,6 +77,11 @@ abstract class AbsAppBarActivity : BaseActivity() {
     // Toolbar items
     protected var navigationButtonIcon: Drawable? = null
         set(icon) {
+            if (field != null && this is DrawerActivity) {
+                Log.e(TAG, "setNavigationButtonIcon: not supported in DrawerLayout")
+                return
+            }
+
             val outValue = TypedValue()
             theme.resolveAttribute(
                 androidx.appcompat.R.attr.actionMenuTextColor, outValue, true)
@@ -196,7 +201,7 @@ abstract class AbsAppBarActivity : BaseActivity() {
     /*
      * Toolbar navigation button methods.
      */
-    fun defaultHomeAsUp() {
+    open fun defaultHomeAsUp() {
         if (navigationButtonIcon == null) {
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
             navigationButtonIcon = getDrawable(R.drawable.tw_ic_ab_back_mtrl)
@@ -206,11 +211,11 @@ abstract class AbsAppBarActivity : BaseActivity() {
         }
     }
 
-    fun setNavigationButtonTooltip(tooltipText: CharSequence?) {
+    open fun setNavigationButtonTooltip(tooltipText: CharSequence?) {
         toolbar.navigationContentDescription = tooltipText
     }
 
-    fun setNavigationButtonOnClickListener(listener: View.OnClickListener?) {
+    open fun setNavigationButtonOnClickListener(listener: View.OnClickListener?) {
         toolbar.setNavigationOnClickListener(listener)
     }
 
