@@ -8,11 +8,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChoiDujour">
 
-        <!-- SamsungBasicInteraction -->
-        <meta-data
-            android:name="SamsungBasicInteraction"
-            android:value="SEP10" />
-
         <activity
             android:name=".ui.activity.MainActivity"
             android:exported="true">
