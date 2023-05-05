@@ -164,6 +164,11 @@ abstract class AbsAppBarActivity : BaseActivity() {
     }
 
     private fun initToolbar() {
+        if (!BuildUtils.isSemDevice()) {
+            toolbar.setTitleTextAppearance(
+                this, R.style.TextAppearance_OneUI_SeslToolbar_Title)
+        }
+
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
     }
