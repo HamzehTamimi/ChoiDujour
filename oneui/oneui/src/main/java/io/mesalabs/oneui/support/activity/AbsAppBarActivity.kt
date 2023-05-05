@@ -26,8 +26,8 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
-import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.SemView
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
@@ -43,8 +43,11 @@ import androidx.core.view.ViewCompat
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 
+import dev.rikka.tools.refine.Refine
+
 import io.mesalabs.oneui.R
 import io.mesalabs.oneui.support.base.BaseActivity
+import io.mesalabs.oneui.support.utils.BuildUtils
 
 /**
  * Part of the code has been kanged from:
@@ -271,10 +274,18 @@ abstract class AbsAppBarActivity : BaseActivity() {
     fun addFooterView(view: View) {
         footerContainer.addView(
             view, LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT))
+        if (BuildUtils.isOneUI()) {
+            Refine.unsafeCast<SemView>(window.decorView)
+                .semSetRoundedCorners(SemView.SEM_ROUNDED_CORNER_NONE)
+        }
     }
 
     fun addFooterView(view: View, params: ViewGroup.LayoutParams) {
         footerContainer.addView(view, params)
+        if (BuildUtils.isOneUI()) {
+            Refine.unsafeCast<SemView>(window.decorView)
+                .semSetRoundedCorners(SemView.SEM_ROUNDED_CORNER_NONE)
+        }
     }
 
     /*

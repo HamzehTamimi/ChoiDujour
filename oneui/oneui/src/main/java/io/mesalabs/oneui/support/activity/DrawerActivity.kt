@@ -24,6 +24,7 @@ import android.graphics.Outline
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
+import android.view.SemView
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
@@ -38,8 +39,11 @@ import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 
+import dev.rikka.tools.refine.Refine
+
 import io.mesalabs.oneui.R
 import io.mesalabs.oneui.databinding.OuiLayoutDrawerUiBinding
+import io.mesalabs.oneui.support.utils.BuildUtils
 
 open class DrawerActivity : AbsAppBarActivity() {
     private val DRAWER_CORNER_RADIUS = 15.0f
@@ -71,6 +75,11 @@ open class DrawerActivity : AbsAppBarActivity() {
     }
 
     private fun initDrawer() {
+        if (BuildUtils.isOneUI()) {
+            Refine.unsafeCast<SemView>(window.decorView)
+                .semSetRoundedCorners(SemView.SEM_ROUNDED_CORNER_NONE)
+        }
+
         super.navigationButtonIcon = getDrawable(R.drawable.tw_ic_ab_drawer_mtrl)
         // TODO add localized string
         super.setNavigationButtonTooltip("Open drawer sar")
