@@ -9,6 +9,8 @@
         <flag name="bottom_right" value="0x8" />
     </attr>
 
+    <attr name="switchBarStyle" format="reference" />
+
     <!-- Custom Views -->
     <declare-styleable name="RoundedCoordinatorLayout">
         <attr name="roundedCorners" />
@@ -18,6 +20,12 @@
     </declare-styleable>
     <declare-styleable name="RoundedLinearLayout">
         <attr name="roundedCorners" />
+    </declare-styleable>
+    <declare-styleable name="SwitchBar">
+        <attr name="switchBarBackgroundActivatedColor" format="color" />
+        <attr name="switchBarBackgroundColor" format="color" />
+        <attr name="switchBarTextActivatedColor" format="color" />
+        <attr name="switchBarTextColor" format="color" />
     </declare-styleable>
 
 </resources>

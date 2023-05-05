@@ -1,0 +1,7 @@
+<resources>
+
+    <!-- SwitchBar -->
+    <dimen name="sep_switch_bar_margin_start">24.0dp</dimen>
+    <dimen name="sep_switch_bar_margin_end">24.0dp</dimen>
+
+</resources>

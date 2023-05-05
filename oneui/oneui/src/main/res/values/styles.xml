@@ -6,4 +6,17 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+    <!-- SwitchBar -->
+    <style name="Widget.OneUI.SwitchBar" parent="@android:style/Widget">
+        <item name="switchBarBackgroundColor">@color/sep_theme_switch_bar_off_background_color</item>
+        <item name="switchBarBackgroundActivatedColor">@color/sep_theme_switch_bar_on_background_color</item>
+        <item name="switchBarTextColor">@color/sep_theme_switch_bar_off_text_color</item>
+        <item name="switchBarTextActivatedColor">@color/sep_theme_switch_bar_on_text_color</item>
+    </style>
+
+    <style name="TextAppearance.OneUI.SwitchBar" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">20.0sp</item>
+        <item name="android:textColor">?attr/colorPrimaryDark</item>
+    </style>
+
 </resources>

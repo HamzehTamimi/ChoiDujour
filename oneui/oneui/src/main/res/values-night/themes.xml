@@ -11,6 +11,7 @@
         <item name="bottomNavigationStyle">@style/Widget.Design.BottomNavigationView</item>
         <item name="collapsingToolbarLayoutStyle">@style/Widget.Design.CollapsingToolbar</item>
         <item name="tabStyle">@style/Widget.Design.TabLayout.Light</item>
+        <item name="switchBarStyle">@style/Widget.OneUI.SwitchBar</item>
     </style>
 
 </resources>

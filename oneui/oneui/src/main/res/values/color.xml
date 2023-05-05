@@ -7,4 +7,9 @@
     <!-- DrawerActivity -->
     <color name="sep_drawerlayout_drawer_dim_color">#33000000</color>
 
+    <!-- SwitchBar -->
+    <color name="sep_theme_switch_bar_off_background_color">#fffcfcfc</color>
+    <color name="sep_theme_switch_bar_on_background_color">#ffe9e9e9</color>
+    <color name="sep_theme_switch_bar_off_text_color">#ff252525</color>
+
 </resources>

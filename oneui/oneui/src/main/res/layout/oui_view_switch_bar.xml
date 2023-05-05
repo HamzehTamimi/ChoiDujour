@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/switchbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sep_switch_bar_height"
+        android:orientation="horizontal"
+        android:background="@drawable/sep_switch_bar_background">
+
+        <TextView
+            android:id="@+id/switchbar_text"
+            android:layout_width="0.0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:textAppearance="@style/TextAppearance.OneUI.SwitchBar"
+            android:textAlignment="viewStart"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:importantForAccessibility="no" />
+
+        <androidx.appcompat.widget.SeslProgressBar
+            android:id="@+id/switchbar_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/sep_switch_bar_progress_margin_right"
+            android:visibility="gone"
+            style="@style/Widget.AppCompat.ProgressBar.Small" />
+
+        <androidx.appcompat.widget.SeslToggleSwitch
+            android:id="@+id/switchbar_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@null" />
+
+    </LinearLayout>
+
+</merge>
