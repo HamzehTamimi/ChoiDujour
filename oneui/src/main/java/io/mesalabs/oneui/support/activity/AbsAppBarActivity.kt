@@ -59,26 +59,28 @@ abstract class AbsAppBarActivity : BaseActivity() {
             field = expandable
 
             if (expandable) {
-                appBarLayout.isEnabled = true;
-                appBarLayout.seslSetCustomHeightProportion(false, 0.3f);
+                appBarLayout.isEnabled = true
+                appBarLayout.seslSetCustomHeightProportion(false, 0.3f)
             } else {
-                appBarLayout.isEnabled = false;
+                appBarLayout.isEnabled = false
                 appBarLayout.seslSetCustomHeight(resources.getDimensionPixelSize(
-                    androidx.appcompat.R.dimen.sesl_action_bar_height_with_padding));
+                    androidx.appcompat.R.dimen.sesl_action_bar_height_with_padding))
             }
         }
 
     protected var appBarExpanded: Boolean = true
         get() = field and !appBarLayout.seslIsCollapsed()
         set(expanded) {
-            setAppBarExpanded(expanded, ViewCompat.isLaidOut(appBarLayout))
+            field = expanded
+            if (!appBarLayout.seslIsCollapsed() != field)
+                appBarLayout.setExpanded(expanded, ViewCompat.isLaidOut(appBarLayout))
         }
 
     // Toolbar items
     protected var navigationButtonIcon: Drawable? = null
         set(icon) {
-            if (field != null && this is DrawerActivity) {
-                Log.e(TAG, "setNavigationButtonIcon: not supported in DrawerLayout")
+            if (field != null && this is DrawerActivity || this is SearchActivity) {
+                Log.e(TAG, "setNavigationButtonIcon: this method is only supported by AppBarActivity.")
                 return
             }
 
@@ -191,10 +193,10 @@ abstract class AbsAppBarActivity : BaseActivity() {
      */
     fun setAppBarExpanded(expanded: Boolean, animate: Boolean) {
         if (appBarExpandable) {
-            appBarExpanded = expanded;
-            appBarLayout.setExpanded(expanded, animate);
+            appBarLayout.setExpanded(expanded, animate)
+            appBarExpanded = expanded
         } else {
-            Log.d(TAG, "setExpanded: appBar is not expandable");
+            Log.d(TAG, "setExpanded: appBar is not expandable")
         }
     }
 
