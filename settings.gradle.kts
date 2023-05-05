@@ -1,2 +1,3 @@
 include(":app")
-include(":oneui")
+include(":oneui:oneui")
+include(":oneui:stub")

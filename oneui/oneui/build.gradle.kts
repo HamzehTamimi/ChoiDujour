@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     kotlin("android")
+    id("dev.rikka.tools.refine")
 }
 
 android {
@@ -61,4 +62,8 @@ dependencies {
     implementation("androidx.viewpager2:viewpager2:1.0.0") {
         exclude(group = "androidx.recyclerview", module = "recyclerview")
     }
+    // HiddenApiRefinePlugin: https://github.com/RikkaApps/HiddenApiRefinePlugin
+    implementation("dev.rikka.tools.refine:runtime:4.3.0")
+
+    compileOnly(project(":oneui:stub"))
 }
