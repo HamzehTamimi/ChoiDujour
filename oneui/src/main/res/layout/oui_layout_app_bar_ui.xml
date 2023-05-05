@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<io.mesalabs.oneui.support.widget.RoundedCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="0.0dp"
     android:layout_weight="1"
-    android:background="@color/sep_theme_round_and_bg_color">
+    android:background="@color/sep_theme_round_and_bg_color"
+    app:roundedCorners="bottom_left|bottom_right">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
@@ -33,4 +34,4 @@
         android:background="@color/sep_theme_background_color"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</io.mesalabs.oneui.support.widget.RoundedCoordinatorLayout>
