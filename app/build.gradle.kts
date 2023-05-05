@@ -74,5 +74,5 @@ dependencies {
         exclude(group = "androidx.recyclerview", module = "recyclerview")
     }
 
-    implementation(project(":oneui"))
+    implementation(project(":oneui:oneui"))
 }
