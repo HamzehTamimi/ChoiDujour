@@ -37,7 +37,6 @@ import io.mesalabs.oneui.databinding.OuiLayoutAppBarUiBinding
 open class AppBarActivity : AbsAppBarActivity() {
     private lateinit var mBinding: OuiLayoutAppBarUiBinding
     private lateinit var mFooterContainer: LinearLayout
-    private lateinit var mToolbar: Toolbar
 
     override fun onLayoutCreate() {
         val rootView = LinearLayout(this)
@@ -50,8 +49,6 @@ open class AppBarActivity : AbsAppBarActivity() {
         appBarLp.weight = 1.0f
 
         rootView.addView(mBinding.root, appBarLp)
-
-        mToolbar = Toolbar(this)
 
         mFooterContainer = LinearLayout(this)
         mFooterContainer.orientation = LinearLayout.VERTICAL
@@ -69,7 +66,7 @@ open class AppBarActivity : AbsAppBarActivity() {
     override val collapsingToolbarLayout: CollapsingToolbarLayout
         get() = mBinding.collapsingToolbarLayout
     override val toolbar: Toolbar
-        get() = mToolbar
+        get() = mBinding.toolbar
     override val contentContainer: ViewGroup
         get() = mBinding.contentContainer
     override val footerContainer: ViewGroup

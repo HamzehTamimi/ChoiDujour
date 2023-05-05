@@ -161,12 +161,6 @@ abstract class AbsAppBarActivity : BaseActivity() {
     }
 
     private fun initToolbar() {
-        val lp = CollapsingToolbarLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
-        lp.gravity = Gravity.BOTTOM
-        lp.collapseMode = CollapsingToolbarLayout.LayoutParams.COLLAPSE_MODE_PIN
-
-        collapsingToolbarLayout.addView(toolbar, lp)
-
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
     }

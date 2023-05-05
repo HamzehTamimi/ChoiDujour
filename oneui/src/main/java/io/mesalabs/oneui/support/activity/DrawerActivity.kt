@@ -46,7 +46,6 @@ open class DrawerActivity : AbsAppBarActivity() {
 
     // Views
     private lateinit var mBinding: OuiLayoutDrawerUiBinding
-    private lateinit var mToolbar: Toolbar
 
     // Callbacks
     private val mDrawerListener: DrawerListener = DrawerListener()
@@ -59,7 +58,6 @@ open class DrawerActivity : AbsAppBarActivity() {
     override fun onLayoutCreate() {
         mBinding = OuiLayoutDrawerUiBinding.inflate(layoutInflater)
         setRootView(mBinding.root)
-        mToolbar = Toolbar(this)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -95,7 +93,7 @@ open class DrawerActivity : AbsAppBarActivity() {
     override val collapsingToolbarLayout: CollapsingToolbarLayout
         get() = mBinding.appBarContent.collapsingToolbarLayout
     override val toolbar: Toolbar
-        get() = mToolbar
+        get() = mBinding.appBarContent.toolbar
     override val contentContainer: ViewGroup
         get() = mBinding.appBarContent.contentContainer
     override val footerContainer: ViewGroup
