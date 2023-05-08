@@ -299,11 +299,11 @@ abstract class AbsAppBarActivity : BaseActivity() {
     private fun setContentSideMargin(config: Configuration, layout: ViewGroup) {
         if (!isDestroyed && !isFinishing) {
             findViewById<View>(android.R.id.content).post {
-                if (config.screenWidthDp >= 589) {
-                    layout.layoutParams.width = MATCH_PARENT
-                }
-                val m = getSideMargin(config)
-                val lp = layout.layoutParams as MarginLayoutParams
+                var m: Int = getSideMargin(config)
+                if (m < 0)
+                    m = 0
+
+                val lp: MarginLayoutParams = layout.layoutParams as MarginLayoutParams
                 lp.setMargins(m, 0, m, 0)
                 layout.layoutParams = lp
             }
@@ -311,16 +311,19 @@ abstract class AbsAppBarActivity : BaseActivity() {
     }
 
     private fun getSideMargin(config: Configuration): Int {
-        val width = findViewById<View>(android.R.id.content).width
-        return (width * getMarginRatio(config.screenWidthDp, config.screenHeightDp)).toInt()
-    }
-
-    private fun getMarginRatio(screenWidthDp: Int, screenHeightDp: Int): Float {
-        return when {
-            screenWidthDp < 589 -> 0.0f
-            screenHeightDp > 411 && screenWidthDp <= 959 -> 0.07f
-            screenWidthDp >= 960 -> 0.1812f
-            else -> 0.0f
+        val ratio = {
+            val screenWidthDp: Int = config.screenWidthDp
+            val screenHeightDp: Int = config.screenHeightDp
+            if (screenWidthDp in 589..959) {
+                (screenWidthDp * if (screenHeightDp < 411) 1.0f else 0.86f).toInt()
+            } else if (screenWidthDp >= 960) {
+                840
+            } else {
+                screenWidthDp
+            }
         }
+
+        val density = resources.displayMetrics.density
+        return ((config.screenWidthDp - ratio()) / 2 * density).toInt()
     }
 }
