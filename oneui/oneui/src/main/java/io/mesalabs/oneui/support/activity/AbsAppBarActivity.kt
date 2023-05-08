@@ -18,6 +18,7 @@
 
 package io.mesalabs.oneui.support.activity
 
+import android.view.SemWindowManager.LayoutParams.SEM_EXTENSION_FLAG_RESIZE_FULLSCREEN_WINDOW_ON_SOFT_INPUT
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 
@@ -28,9 +29,12 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.SemView
+import android.view.SemWindowManager
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 
@@ -175,6 +179,7 @@ abstract class AbsAppBarActivity : BaseActivity() {
 
     private fun refreshLayout(newConfig: Configuration) {
         val isLandscape = newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE
+        applyLandscapeFullScreen(newConfig)
         appBarLayout.setExpanded(!isLandscape && appBarExpanded, false)
         setContentSideMargin(newConfig, contentContainer)
     }
@@ -296,6 +301,23 @@ abstract class AbsAppBarActivity : BaseActivity() {
     /*
      * Misc
      */
+    private fun applyLandscapeFullScreen(config: Configuration) {
+        if (!isInMultiWindowMode
+            && config.smallestScreenWidthDp < 420
+            && config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            window.insetsController!!.hide(WindowInsets.Type.statusBars())
+        } else {
+            window.insetsController!!.show(WindowInsets.Type.statusBars())
+        }
+
+        if (BuildUtils.isSemDevice()) {
+            val attributes: WindowManager.LayoutParams = window.attributes
+            Refine.unsafeCast<SemWindowManager.LayoutParams>(attributes)
+                .semAddExtensionFlags(SEM_EXTENSION_FLAG_RESIZE_FULLSCREEN_WINDOW_ON_SOFT_INPUT)
+            window.attributes = attributes
+        }
+    }
+
     private fun setContentSideMargin(config: Configuration, layout: ViewGroup) {
         if (!isDestroyed && !isFinishing) {
             findViewById<View>(android.R.id.content).post {
