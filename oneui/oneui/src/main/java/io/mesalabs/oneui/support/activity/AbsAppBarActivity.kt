@@ -39,6 +39,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 
 import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.graphics.drawable.DrawableCompat
@@ -50,14 +51,13 @@ import com.google.android.material.appbar.CollapsingToolbarLayout
 import dev.rikka.tools.refine.Refine
 
 import io.mesalabs.oneui.R
-import io.mesalabs.oneui.support.base.BaseActivity
 import io.mesalabs.oneui.support.utils.BuildUtils
 
 /**
  * Part of the code has been kanged from:
  * https://github.com/OneUIProject/oneui-design/blob/main/lib/src/main/java/dev/oneuiproject/oneui/layout/ToolbarLayout.java
  */
-abstract class AbsAppBarActivity : BaseActivity() {
+abstract class AbsAppBarActivity : AppCompatActivity() {
     protected val TAG: String = javaClass.simpleName
 
     // AppBar flags
@@ -147,7 +147,7 @@ abstract class AbsAppBarActivity : BaseActivity() {
     }
 
     override fun setContentView(@LayoutRes layoutResID: Int) {
-        val inflater = LayoutInflater.from(mContext)
+        val inflater = LayoutInflater.from(this)
         setContentView(inflater.inflate(layoutResID, contentContainer, false))
     }
 
