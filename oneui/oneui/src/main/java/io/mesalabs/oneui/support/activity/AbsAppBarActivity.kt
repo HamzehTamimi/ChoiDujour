@@ -18,6 +18,7 @@
 
 package io.mesalabs.oneui.support.activity
 
+import android.annotation.SuppressLint
 import android.view.SemWindowManager.LayoutParams.SEM_EXTENSION_FLAG_RESIZE_FULLSCREEN_WINDOW_ON_SOFT_INPUT
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
@@ -34,6 +35,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.LinearLayout
@@ -301,13 +303,19 @@ abstract class AbsAppBarActivity : AppCompatActivity() {
     /*
      * Misc
      */
+    @SuppressLint("WrongConstant")
+    @Suppress("DEPRECATION")
     private fun applyLandscapeFullScreen(config: Configuration) {
+        val controller: WindowInsetsController = window.insetsController ?: return
+
         if (!isInMultiWindowMode
             && config.smallestScreenWidthDp < 420
             && config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            window.insetsController!!.hide(WindowInsets.Type.statusBars())
+            controller.hide(WindowInsets.Type.statusBars())
+            controller.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         } else {
-            window.insetsController!!.show(WindowInsets.Type.statusBars())
+            controller.show(WindowInsets.Type.statusBars())
+            controller.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_BARS_BY_SWIPE
         }
 
         if (BuildUtils.isSemDevice()) {
