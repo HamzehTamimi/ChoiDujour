@@ -52,7 +52,7 @@ open class AppBarActivity : AbsAppBarActivity() {
 
         mFooterContainer = LinearLayout(this)
         mFooterContainer.orientation = LinearLayout.VERTICAL
-        mFooterContainer.setBackgroundResource(R.color.sep_theme_background_color)
+        mFooterContainer.setBackgroundColor(getColor(R.color.sep_theme_round_and_bg_color))
         val footerLp = LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT)
         rootView.addView(mFooterContainer, footerLp)
 

@@ -31,6 +31,6 @@
         android:layout_height="match_parent"
         android:layout_marginTop="16.0dp"
         android:layout_gravity="start"
-        android:background="@color/sep_theme_background_color" />
+        android:background="@color/sep_theme_round_and_bg_color" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
