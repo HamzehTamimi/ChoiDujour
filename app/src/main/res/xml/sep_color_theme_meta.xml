@@ -2,9 +2,9 @@
 <ThemeMetaData FormatVersion="1.3" GuideVersion="1.4">
     <AppMetaData Name="ChoiDujour" TargetApi="30" TargetPackageName="io.mesalabs.choidujour" VersionCode="1" VersionName="">
         <Include RefName="SESL" />
-        <Property Comment="SwitchBar off background color" DefaultValue="#fffcfcfc" DestAttribName="sep_theme_switch_bar_off_background_color" UID="610-1" ValueRef="1-40-2" ValueType="BgColor" />
-        <Property Comment="SwitchBar on background color" DefaultValue="#ffe9e9e9" DestAttribName="sep_theme_switch_bar_on_background_color" UID="610-2" ValueRef="1-40-1" ValueType="BgColor" />
-        <Property Comment="SwitchBar off text color" DefaultValue="#ff252525" DestAttribName="sep_theme_switch_bar_off_text_color" UID="610-3" ValueRef="1-40-4" ValueType="BgColor" />
-        <Property Comment="SwitchBar on text color" DefaultValue="#ff0072de" DestAttribName="sep_theme_switch_bar_on_text_color" UID="610-4" ValueRef="1-40-3" ValueType="BgColor" />
+        <Property Comment="SwitchBar off background color" DefaultValue="#fffcfcfc" DestAttribName="sep_theme_switch_bar_off_background_color" UID="611-1" ValueRef="1-40-2" ValueType="BgColor" />
+        <Property Comment="SwitchBar on background color" DefaultValue="#ffe9e9e9" DestAttribName="sep_theme_switch_bar_on_background_color" UID="611-2" ValueRef="1-40-1" ValueType="BgColor" />
+        <Property Comment="SwitchBar off text color" DefaultValue="#ff252525" DestAttribName="sep_theme_switch_bar_off_text_color" UID="611-3" ValueRef="1-40-4" ValueType="BgColor" />
+        <Property Comment="SwitchBar on text color" DefaultValue="#ff0072de" DestAttribName="sep_theme_switch_bar_on_text_color" UID="611-4" ValueRef="1-40-3" ValueType="BgColor" />
     </AppMetaData>
 </ThemeMetaData>
