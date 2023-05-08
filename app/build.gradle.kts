@@ -63,8 +63,8 @@ configurations.all {
 
 dependencies {
     // Sesl: https://github.com/OneUIProject/oneui-core/tree/sesl4
-    implementation("io.github.oneuiproject.sesl:appcompat:1.3.0")
-    implementation("io.github.oneuiproject.sesl:material:1.4.0") {
+    implementation("io.github.oneuiproject.sesl:appcompat:1.4.0")
+    implementation("io.github.oneuiproject.sesl:material:1.5.0") {
         exclude(group = "io.github.oneuiproject.sesl", module = "viewpager2")
     }
     // AndroidX: https://developer.android.com/jetpack/androidx/versions
