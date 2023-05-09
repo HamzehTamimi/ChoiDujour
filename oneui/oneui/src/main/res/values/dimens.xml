@@ -1,5 +1,9 @@
 <resources>
 
+    <!-- Common -->
+    <dimen name="sep_list_divider_inset">@dimen/sesl_list_divider_inset</dimen>
+    <dimen name="sep_list_divider_height">@dimen/sesl_list_divider_height</dimen>
+
     <!-- SwitchBar -->
     <dimen name="sep_switch_bar_height">58.0dp</dimen>
     <dimen name="sep_switch_bar_margin_start">12.0dp</dimen>

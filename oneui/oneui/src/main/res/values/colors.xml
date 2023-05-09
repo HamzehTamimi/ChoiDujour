@@ -3,13 +3,14 @@
     <!-- Common -->
     <color name="sep_theme_round_and_bg_color">@color/sesl_round_and_bgcolor_light</color>
     <color name="sep_theme_background_color">@color/sesl_background_color_light</color>
-
-    <!-- DrawerActivity -->
-    <color name="sep_drawerlayout_drawer_dim_color">#33000000</color>
+    <color name="sep_theme_list_divider_color">@color/sesl_list_divider_color_light</color>
 
     <!-- SwitchBar -->
     <color name="sep_theme_switch_bar_off_background_color">#fffcfcfc</color>
     <color name="sep_theme_switch_bar_on_background_color">#ffe9e9e9</color>
     <color name="sep_theme_switch_bar_off_text_color">#ff252525</color>
+
+    <!-- DrawerActivity -->
+    <color name="sep_drawerlayout_drawer_dim_color">#33000000</color>
 
 </resources>
