@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:viewBindingIgnore="true">
+
+    <FrameLayout
+        android:id="@+id/home_list_item_icon_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingEnd="16.0dp"
+        android:gravity="start|center"
+        android:visibility="gone">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/home_list_item_icon"
+            android:layout_width="28.0dp"
+            android:layout_height="28.0dp"
+            android:layout_gravity="center"/>
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingTop="14.0dp"
+        android:paddingBottom="14.0dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/home_list_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="10.0dp"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textAlignment="viewStart"
+            android:ellipsize="end" />
+
+        <FrameLayout
+            android:id="@+id/home_list_item_badge_container"
+            android:layout_width="10.0dp"
+            android:layout_height="10.0dp"
+            android:layout_alignEnd="@id/home_list_item_title"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <View
+                android:layout_width="6.0dp"
+                android:layout_height="6.0dp"
+                android:background="@drawable/list_item_dot_badge" />
+
+        </FrameLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/home_list_item_summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="10.0dp"
+            android:layout_alignStart="@id/home_list_item_title"
+            android:layout_below="@id/home_list_item_title"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textAlignment="viewStart"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+</merge>

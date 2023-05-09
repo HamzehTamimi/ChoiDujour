@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/list_item_dot_badge_color" />
+    <size android:width="6.0dp" android:height="6.0dp" />
+</shape>
