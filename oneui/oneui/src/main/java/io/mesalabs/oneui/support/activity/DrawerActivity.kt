@@ -46,7 +46,9 @@ import io.mesalabs.oneui.databinding.OuiLayoutDrawerUiBinding
 import io.mesalabs.oneui.support.utils.BuildUtils
 
 open class DrawerActivity : AbsAppBarActivity() {
-    private val DRAWER_CORNER_RADIUS = 15.0f
+    companion object {
+        private const val DRAWER_CORNER_RADIUS = 15.0f
+    }
 
     // Views
     private lateinit var mBinding: OuiLayoutDrawerUiBinding

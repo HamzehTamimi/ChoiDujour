@@ -32,7 +32,7 @@ open class SearchActivity : AppBarActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setAppBarExpanded(false, false)
+        setAppBarExpanded(expanded = false, animate = false)
         initSearchView()
     }
 

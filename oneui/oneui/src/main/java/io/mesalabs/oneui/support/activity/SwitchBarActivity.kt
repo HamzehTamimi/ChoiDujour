@@ -42,7 +42,7 @@ open class SwitchBarActivity : AbsAppBarActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setAppBarExpanded(false, false)
+        setAppBarExpanded(expanded = false, animate = false)
     }
 
     override fun onLayoutCreate() {
