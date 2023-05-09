@@ -39,7 +39,7 @@ class ListContainer @JvmOverloads constructor(
         divider = context.getDrawable(io.mesalabs.oneui.R.drawable.sep_list_divider)!!
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
         for (i in 0 until childCount) {
@@ -49,7 +49,7 @@ class ListContainer @JvmOverloads constructor(
                     + (child.layoutParams as MarginLayoutParams).bottomMargin)
             val bottom: Int = divider.intrinsicHeight + top
             divider.setBounds(left, top, right, bottom)
-            divider.draw(canvas!!)
+            divider.draw(canvas)
         }
     }
 }
