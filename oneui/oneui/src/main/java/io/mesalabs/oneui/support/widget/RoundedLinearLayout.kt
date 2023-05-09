@@ -30,7 +30,7 @@ import androidx.appcompat.util.SeslRoundedCorner
 
 import io.mesalabs.oneui.R
 
-class RoundedLinearLayout @JvmOverloads constructor(
+open class RoundedLinearLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
