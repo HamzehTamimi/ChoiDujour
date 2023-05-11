@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.mesalabs.choidujour.ui.home.widget
+package io.mesalabs.choidujour.ui.widget
 
 import android.content.Context
 import android.graphics.Canvas

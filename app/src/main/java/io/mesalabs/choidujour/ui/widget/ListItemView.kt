@@ -39,7 +39,7 @@ class ListItemView @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr, defStyleRes) {
     companion object {
-        private const val TAG: String = "HomeItemView"
+        private const val TAG: String = "ListItemView"
 
         private const val VIEW_MIN_HEIGHT: Float = 56.0f
         private const val VIEW_PADDING_HORIZONTAL: Float = 24.0f
@@ -90,11 +90,11 @@ class ListItemView @JvmOverloads constructor(
         orientation = HORIZONTAL
         inflate(context, R.layout.view_list_item_layout, this)
 
-        iconContainer = findViewById(R.id.home_list_item_icon_container)
-        iconImageView = findViewById(R.id.home_list_item_icon)
-        titleTextView = findViewById(R.id.home_list_item_title)
-        summaryTextView = findViewById(R.id.home_list_item_summary)
-        badgeContainer = findViewById(R.id.home_list_item_badge_container)
+        iconContainer = findViewById(R.id.list_item_icon_container)
+        iconImageView = findViewById(R.id.list_item_icon)
+        titleTextView = findViewById(R.id.list_item_title)
+        summaryTextView = findViewById(R.id.list_item_summary)
+        badgeContainer = findViewById(R.id.list_item_badge_container)
     }
 
     var icon: Drawable? = null
