@@ -88,8 +88,6 @@ public class UpdatesActivity extends UpdatesListActivity {
     private View mRefreshIconView;
     private RotateAnimation mRefreshAnimation;
 
-    private boolean mIsTV;
-
     private UpdateInfo mToBeExported = null;
     private final ActivityResultLauncher<Intent> mExportUpdate = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -107,9 +105,6 @@ public class UpdatesActivity extends UpdatesListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_updates);
-
-        UiModeManager uiModeManager = getSystemService(UiModeManager.class);
-        mIsTV = uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION;
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         mAdapter = new UpdatesListAdapter(this);
@@ -139,14 +134,12 @@ public class UpdatesActivity extends UpdatesListActivity {
             }
         };
 
-        if (!mIsTV) {
-            Toolbar toolbar = findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-            ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.setDisplayShowTitleEnabled(false);
-                actionBar.setDisplayHomeAsUpEnabled(true);
-            }
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
         TextView headerTitle = findViewById(R.id.header_title);
@@ -163,38 +156,33 @@ public class UpdatesActivity extends UpdatesListActivity {
         headerBuildDate.setText(StringGenerator.getDateLocalizedUTC(this,
                 DateFormat.LONG, BuildInfoUtils.getBuildDateTimestamp()));
 
-        if (!mIsTV) {
-            // Switch between header title and appbar title minimizing overlaps
-            final CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar);
-            final AppBarLayout appBar = findViewById(R.id.app_bar);
-            appBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-                boolean mIsShown = false;
+        // Switch between header title and appbar title minimizing overlaps
+        final CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar);
+        final AppBarLayout appBar = findViewById(R.id.app_bar);
+        appBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            boolean mIsShown = false;
 
-                @Override
-                public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                    int scrollRange = appBarLayout.getTotalScrollRange();
-                    if (!mIsShown && scrollRange + verticalOffset < 10) {
-                        collapsingToolbar.setTitle(getString(R.string.display_name));
-                        mIsShown = true;
-                    } else if (mIsShown && scrollRange + verticalOffset > 100) {
-                        collapsingToolbar.setTitle(null);
-                        mIsShown = false;
-                    }
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                int scrollRange = appBarLayout.getTotalScrollRange();
+                if (!mIsShown && scrollRange + verticalOffset < 10) {
+                    collapsingToolbar.setTitle(getString(R.string.display_name));
+                    mIsShown = true;
+                } else if (mIsShown && scrollRange + verticalOffset > 100) {
+                    collapsingToolbar.setTitle(null);
+                    mIsShown = false;
                 }
-            });
-
-            mRefreshAnimation = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f,
-                    Animation.RELATIVE_TO_SELF, 0.5f);
-            mRefreshAnimation.setInterpolator(new LinearInterpolator());
-            mRefreshAnimation.setDuration(1000);
-
-            if (!Utils.hasTouchscreen(this)) {
-                // This can't be collapsed without a touchscreen
-                appBar.setExpanded(false);
             }
-        } else {
-            findViewById(R.id.refresh).setOnClickListener(v -> downloadUpdatesList(true));
-            findViewById(R.id.preferences).setOnClickListener(v -> showPreferencesDialog());
+        });
+
+        mRefreshAnimation = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
+        mRefreshAnimation.setInterpolator(new LinearInterpolator());
+        mRefreshAnimation.setDuration(1000);
+
+        if (!Utils.hasTouchscreen(this)) {
+            // This can't be collapsed without a touchscreen
+            appBar.setExpanded(false);
         }
     }
 
@@ -444,35 +432,20 @@ public class UpdatesActivity extends UpdatesListActivity {
     }
 
     private void refreshAnimationStart() {
-        if (!mIsTV) {
-            if (mRefreshIconView == null) {
-                mRefreshIconView = findViewById(R.id.menu_refresh);
-            }
-            if (mRefreshIconView != null) {
-                mRefreshAnimation.setRepeatCount(Animation.INFINITE);
-                mRefreshIconView.startAnimation(mRefreshAnimation);
-                mRefreshIconView.setEnabled(false);
-            }
-        } else {
-            findViewById(R.id.recycler_view).setVisibility(View.GONE);
-            findViewById(R.id.no_new_updates_view).setVisibility(View.GONE);
-            findViewById(R.id.refresh_progress).setVisibility(View.VISIBLE);
+        if (mRefreshIconView == null) {
+            mRefreshIconView = findViewById(R.id.menu_refresh);
+        }
+        if (mRefreshIconView != null) {
+            mRefreshAnimation.setRepeatCount(Animation.INFINITE);
+            mRefreshIconView.startAnimation(mRefreshAnimation);
+            mRefreshIconView.setEnabled(false);
         }
     }
 
     private void refreshAnimationStop() {
-        if (!mIsTV) {
-            if (mRefreshIconView != null) {
-                mRefreshAnimation.setRepeatCount(0);
-                mRefreshIconView.setEnabled(true);
-            }
-        } else {
-            findViewById(R.id.refresh_progress).setVisibility(View.GONE);
-            if (mAdapter.getItemCount() > 0) {
-                findViewById(R.id.recycler_view).setVisibility(View.VISIBLE);
-            } else {
-                findViewById(R.id.no_new_updates_view).setVisibility(View.VISIBLE);
-            }
+        if (mRefreshIconView != null) {
+            mRefreshAnimation.setRepeatCount(0);
+            mRefreshIconView.setEnabled(true);
         }
     }
 

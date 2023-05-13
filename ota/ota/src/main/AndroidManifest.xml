@@ -1,6 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.lineageos.updater"
-    android:versionCode="1">
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.ACCESS_CACHE_FILESYSTEM" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -14,12 +13,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme"
         android:usesCleartextTraffic="false">
 
         <activity
@@ -27,20 +21,19 @@
             android:excludeFromRecents="true"
             android:label="@string/display_name"
             android:exported="true"
-            android:theme="@style/AppTheme.NoActionBar"
             android:launchMode="singleTop">
+
             <intent-filter android:priority="1">
                 <action android:name="android.settings.SYSTEM_UPDATE_SETTINGS" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="com.android.settings.SHORTCUT" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
         </activity>
 
         <service android:name=".controller.UpdaterService" />
@@ -57,6 +50,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>
