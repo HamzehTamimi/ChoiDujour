@@ -1,30 +1,22 @@
 plugins {
-    id("com.android.application")
-    kotlin("android")
+    id("com.android.library")
+    id("dev.rikka.tools.refine")
 }
 
-val versionMajor = 0
-val versionMinor = 0
-val versionPatch = 1
-
 android {
-    namespace = "io.mesalabs.choidujour"
+    namespace = "org.lineageos.updater"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "io.mesalabs.choidujour"
         minSdk = 30
-        targetSdk = 33
-        versionCode = versionMajor * 100000 + versionMinor * 1000 + versionPatch
-        versionName = "${versionMajor}.${versionMinor}.${versionPatch}"
     }
 
     lint {
-        disable += "AppCompatResource"
+        disable += "ProtectedPermissions"
     }
 
     buildFeatures {
-        viewBinding = true
+        buildConfig = false
     }
 
     compileOptions {
@@ -32,24 +24,16 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-
     buildTypes {
         debug {
-            isDebuggable = true
             isMinifyEnabled = false
-            isShrinkResources = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
         }
         release {
-            isDebuggable = false
             isMinifyEnabled = true
-            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -71,13 +55,13 @@ dependencies {
     implementation("io.github.oneuiproject.sesl:material:1.5.0") {
         exclude(group = "io.github.oneuiproject.sesl", module = "viewpager2")
     }
+    implementation("io.github.oneuiproject.sesl:preference:1.1.0")
     // AndroidX: https://developer.android.com/jetpack/androidx/versions
-    implementation("androidx.core:core-ktx:1.10.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.viewpager2:viewpager2:1.0.0") {
         exclude(group = "androidx.recyclerview", module = "recyclerview")
     }
+    // HiddenApiRefinePlugin: https://github.com/RikkaApps/HiddenApiRefinePlugin
+    implementation("dev.rikka.tools.refine:runtime:4.3.0")
 
-    implementation(project(":oneui:oneui"))
-    implementation(project(":ota:ota"))
+    compileOnly(project(":ota:stub"))
 }

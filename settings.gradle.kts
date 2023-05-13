@@ -1,4 +1,5 @@
 include(":app")
 include(":oneui:oneui")
 include(":oneui:stub")
+include(":ota:ota")
 include(":ota:stub")
