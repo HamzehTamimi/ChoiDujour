@@ -18,10 +18,16 @@
 
 package io.mesalabs.oneui.support.view.recyclerview
 
+import android.content.Context
 import android.view.SoundEffectConstants
+import android.view.View
+import android.view.animation.PathInterpolator
+
+import kotlin.math.sqrt
 
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
@@ -52,11 +58,7 @@ class SupportGoToTopClickListener : RecyclerView.SeslOnGoToTopClickListener {
                 }
 
                 view.post {
-                    if (lm is SupportLinearLayoutManager) {
-                        lm.smoothScrollToTop(view)
-                    } else {
-                        view.smoothScrollToPosition(0)
-                    }
+                    smoothScrollToTop(view, lm)
                 }
             }
         }
@@ -75,6 +77,50 @@ class SupportGoToTopClickListener : RecyclerView.SeslOnGoToTopClickListener {
             (lm is LinearLayoutManager) -> lm.findFirstVisibleItemPosition()
             (lm is StaggeredGridLayoutManager) -> lm.findFirstVisibleItemPositions(null)[0]
             else -> -1
+        }
+    }
+
+    private fun smoothScrollToTop(view: RecyclerView, lm: RecyclerView.LayoutManager) {
+        if (view.isLayoutSuppressed) return
+
+        if (lm is LinearLayoutManager) {
+            val showGoToTop = RecyclerView::class.java.getDeclaredMethod("showGoToTop")
+            showGoToTop.isAccessible = true
+            showGoToTop.invoke(view)
+
+            val scroller = GotoTopSmoothScroller(view.context)
+            scroller.targetPosition = 0
+            lm.startSmoothScroll(scroller)
+        } else {
+            view.smoothScrollToPosition(0)
+        }
+    }
+
+    private inner class GotoTopSmoothScroller(context: Context) : LinearSmoothScroller(context) {
+        private val pathInterpolator = PathInterpolator(0.22f, 0.5f, 0.0f, 1.0f)
+
+        override fun getVerticalSnapPreference(): Int {
+            return SNAP_TO_START
+        }
+
+        override fun onTargetFound(targetView: View, state: RecyclerView.State, action: Action) {
+            val dx: Int = calculateDxToMakeVisible(targetView, horizontalSnapPreference)
+            val dy: Int = calculateDyToMakeVisible(targetView, verticalSnapPreference)
+            val distance: Int = sqrt((dx * dx + dy * dy).toDouble()).toInt()
+
+            if (calculateTimeForDeceleration(distance) > 0) {
+                // No idea how Samsung calculates those
+                var duration = ((distance * 2.0E-4 + 0.44999998807907104) * 1000.0).toInt()
+                if (duration > 800) {
+                    duration = 800
+                }
+                action.update(
+                    -dx,
+                    -dy,
+                    duration,
+                    pathInterpolator
+                )
+            }
         }
     }
 }
