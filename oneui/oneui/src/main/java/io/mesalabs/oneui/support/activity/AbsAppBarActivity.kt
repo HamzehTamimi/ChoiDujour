@@ -117,7 +117,7 @@ abstract class AbsAppBarActivity : AppCompatActivity() {
     protected var appBarSubtitleExpanded: CharSequence? = null
         set(subtitle) {
             field = subtitle
-            collapsingToolbarLayout.seslSetSubtitle(title)
+            collapsingToolbarLayout.seslSetSubtitle(subtitle)
         }
 
     protected var appBarSubtitleCollapsed: CharSequence? = null

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/sep_theme_background_color">
+        android:background="@color/sep_theme_round_and_bg_color">
 
         <include
             android:id="@+id/app_bar_content"
@@ -31,6 +31,6 @@
         android:layout_height="match_parent"
         android:layout_marginTop="16.0dp"
         android:layout_gravity="start"
-        android:background="@color/sep_theme_round_and_bg_color" />
+        android:background="@color/sep_theme_background_color" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
