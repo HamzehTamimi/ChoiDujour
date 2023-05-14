@@ -36,8 +36,6 @@ import androidx.preference.PreferenceManager;
 
 import org.lineageos.updater.R;
 import org.lineageos.updater.UpdaterReceiver;
-import org.lineageos.updater.UpdatesActivity;
-import org.lineageos.updater.misc.BuildInfoUtils;
 import org.lineageos.updater.misc.Constants;
 import org.lineageos.updater.misc.StringGenerator;
 import org.lineageos.updater.misc.Utils;
@@ -98,10 +96,14 @@ public class UpdaterService extends Service {
         mNotificationStyle = new NotificationCompat.BigTextStyle();
         mNotificationBuilder.setStyle(mNotificationStyle);
 
-        Intent notificationIntent = new Intent(this, UpdatesActivity.class);
-        PendingIntent intent = PendingIntent.getActivity(this, 0, notificationIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        mNotificationBuilder.setContentIntent(intent);
+        try {
+            Intent notificationIntent = new Intent(this, Class.forName("io.mesalabs.choidujour.ui.activity.UpdatesActivity"));
+            PendingIntent intent = PendingIntent.getActivity(this, 0, notificationIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+            mNotificationBuilder.setContentIntent(intent);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
         mBroadcastReceiver = new BroadcastReceiver() {
             @Override

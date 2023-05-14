@@ -63,25 +63,29 @@ public class UpdaterReceiver extends BroadcastReceiver {
         String buildInfo = context.getString(R.string.list_build_version_date,
                 BuildInfoUtils.getBuildVersion(), buildDate);
 
-        Intent notificationIntent = new Intent(context, UpdatesActivity.class);
-        PendingIntent intent = PendingIntent.getActivity(context, 0, notificationIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        try {
+            Intent notificationIntent = new Intent(context, Class.forName("io.mesalabs.choidujour.ui.activity.UpdatesActivity"));
+            PendingIntent intent = PendingIntent.getActivity(context, 0, notificationIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        NotificationChannel notificationChannel = new NotificationChannel(
-                INSTALL_ERROR_NOTIFICATION_CHANNEL,
-                context.getString(R.string.update_failed_channel_title),
-                NotificationManager.IMPORTANCE_LOW);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
-                INSTALL_ERROR_NOTIFICATION_CHANNEL)
-                .setContentIntent(intent)
-                .setSmallIcon(R.drawable.ic_system_update)
-                .setContentTitle(context.getString(R.string.update_failed_notification))
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(buildInfo))
-                .setContentText(buildInfo);
+            NotificationChannel notificationChannel = new NotificationChannel(
+                    INSTALL_ERROR_NOTIFICATION_CHANNEL,
+                    context.getString(R.string.update_failed_channel_title),
+                    NotificationManager.IMPORTANCE_LOW);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
+                    INSTALL_ERROR_NOTIFICATION_CHANNEL)
+                    .setContentIntent(intent)
+                    .setSmallIcon(R.drawable.ic_system_update)
+                    .setContentTitle(context.getString(R.string.update_failed_notification))
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(buildInfo))
+                    .setContentText(buildInfo);
 
-        NotificationManager nm = context.getSystemService(NotificationManager.class);
-        nm.createNotificationChannel(notificationChannel);
-        nm.notify(0, builder.build());
+            NotificationManager nm = context.getSystemService(NotificationManager.class);
+            nm.createNotificationChannel(notificationChannel);
+            nm.notify(0, builder.build());
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

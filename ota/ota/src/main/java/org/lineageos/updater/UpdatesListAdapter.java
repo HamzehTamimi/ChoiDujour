@@ -15,12 +15,10 @@
  */
 package org.lineageos.updater;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.PowerManager;
 import android.text.SpannableString;
@@ -40,8 +38,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ContextThemeWrapper;
@@ -55,7 +51,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import org.lineageos.updater.controller.UpdaterController;
 import org.lineageos.updater.controller.UpdaterService;
-import org.lineageos.updater.misc.BuildInfoUtils;
 import org.lineageos.updater.misc.Constants;
 import org.lineageos.updater.misc.StringGenerator;
 import org.lineageos.updater.misc.Utils;
@@ -128,7 +123,7 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
         mActivity = activity;
 
         TypedValue tv = new TypedValue();
-        mActivity.getTheme().resolveAttribute(android.R.attr.disabledAlpha, tv, true);
+        mActivity.getInstance().getTheme().resolveAttribute(android.R.attr.disabledAlpha, tv, true);
         mAlphaDisabledValue = tv.getFloat();
     }
 
@@ -160,19 +155,19 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
         final String downloadId = update.getDownloadId();
         if (mUpdaterController.isDownloading(downloadId)) {
             canDelete = true;
-            String downloaded = Formatter.formatShortFileSize(mActivity,
+            String downloaded = Formatter.formatShortFileSize(mActivity.getInstance(),
                     update.getFile().length());
-            String total = Formatter.formatShortFileSize(mActivity, update.getFileSize());
+            String total = Formatter.formatShortFileSize(mActivity.getInstance(), update.getFileSize());
             String percentage = NumberFormat.getPercentInstance().format(
                     update.getProgress() / 100.f);
             viewHolder.mPercentage.setText(percentage);
             long eta = update.getEta();
             if (eta > 0) {
-                CharSequence etaString = StringGenerator.formatETA(mActivity, eta * 1000);
-                viewHolder.mProgressText.setText(mActivity.getString(
+                CharSequence etaString = StringGenerator.formatETA(mActivity.getInstance(), eta * 1000);
+                viewHolder.mProgressText.setText(mActivity.getInstance().getString(
                         R.string.list_download_progress_eta_newer, downloaded, total, etaString));
             } else {
-                viewHolder.mProgressText.setText(mActivity.getString(
+                viewHolder.mProgressText.setText(mActivity.getInstance().getString(
                         R.string.list_download_progress_newer, downloaded, total));
             }
             setButtonAction(viewHolder.mAction, Action.PAUSE, downloadId, true);
@@ -197,13 +192,13 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
         } else {
             canDelete = true;
             setButtonAction(viewHolder.mAction, Action.RESUME, downloadId, !isBusy());
-            String downloaded = Formatter.formatShortFileSize(mActivity,
+            String downloaded = Formatter.formatShortFileSize(mActivity.getInstance(),
                     update.getFile().length());
-            String total = Formatter.formatShortFileSize(mActivity, update.getFileSize());
+            String total = Formatter.formatShortFileSize(mActivity.getInstance(), update.getFileSize());
             String percentage = NumberFormat.getPercentInstance().format(
                     update.getProgress() / 100.f);
             viewHolder.mPercentage.setText(percentage);
-            viewHolder.mProgressText.setText(mActivity.getString(
+            viewHolder.mProgressText.setText(mActivity.getInstance().getString(
                     R.string.list_download_progress_newer, downloaded, total));
             viewHolder.mProgressBar.setIndeterminate(false);
             viewHolder.mProgressBar.setProgress(update.getProgress());
@@ -232,7 +227,7 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
             viewHolder.mMenu.setOnClickListener(getClickListener(update, false, viewHolder.mMenu));
             setButtonAction(viewHolder.mAction, Action.DOWNLOAD, downloadId, !isBusy());
         }
-        String fileSize = Formatter.formatShortFileSize(mActivity, update.getFileSize());
+        String fileSize = Formatter.formatShortFileSize(mActivity.getInstance(), update.getFileSize());
         viewHolder.mBuildSize.setText(fileSize);
 
         viewHolder.mProgress.setVisibility(View.INVISIBLE);
@@ -273,9 +268,9 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
                 throw new RuntimeException("Unknown update status");
         }
 
-        String buildDate = StringGenerator.getDateLocalizedUTC(mActivity,
+        String buildDate = StringGenerator.getDateLocalizedUTC(mActivity.getInstance(),
                 DateFormat.LONG, update.getTimestamp());
-        String buildVersion = mActivity.getString(R.string.list_build_version,
+        String buildVersion = mActivity.getInstance().getString(R.string.list_build_version,
                 update.getVersion());
         viewHolder.mBuildDate.setText(buildDate);
         viewHolder.mBuildVersion.setText(buildVersion);
@@ -315,18 +310,18 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
     }
 
     private void startDownloadWithWarning(final String downloadId) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mActivity.getInstance());
         boolean warn = preferences.getBoolean(Constants.PREF_MOBILE_DATA_WARNING, true);
-        if (Utils.isOnWifiOrEthernet(mActivity) || !warn) {
+        if (Utils.isOnWifiOrEthernet(mActivity.getInstance()) || !warn) {
             mUpdaterController.startDownload(downloadId);
             return;
         }
 
-        View checkboxView = LayoutInflater.from(mActivity).inflate(R.layout.checkbox_view, null);
+        View checkboxView = LayoutInflater.from(mActivity.getInstance()).inflate(R.layout.checkbox_view, null);
         CheckBox checkbox = checkboxView.findViewById(R.id.checkbox);
         checkbox.setText(R.string.checkbox_mobile_data_warning);
 
-        new AlertDialog.Builder(mActivity)
+        new AlertDialog.Builder(mActivity.getInstance())
                 .setTitle(R.string.update_on_mobile_data_title)
                 .setMessage(R.string.update_on_mobile_data_message)
                 .setView(checkboxView)
@@ -336,7 +331,7 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
                                 preferences.edit()
                                         .putBoolean(Constants.PREF_MOBILE_DATA_WARNING, false)
                                         .apply();
-                                mActivity.supportInvalidateOptionsMenu();
+                                mActivity.getInstance().supportInvalidateOptionsMenu();
                             }
                             mUpdaterController.startDownload(downloadId);
                         })
@@ -415,7 +410,7 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
                 button.setText(R.string.reboot);
                 button.setEnabled(enabled);
                 clickListener = enabled ? view -> {
-                    PowerManager pm = mActivity.getSystemService(PowerManager.class);
+                    PowerManager pm = mActivity.getInstance().getSystemService(PowerManager.class);
                     pm.reboot(null);
                 } : null;
             }
@@ -439,7 +434,7 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
     }
 
     private AlertDialog.Builder getDeleteDialog(final String downloadId) {
-        return new AlertDialog.Builder(mActivity)
+        return new AlertDialog.Builder(mActivity.getInstance())
                 .setTitle(R.string.confirm_delete_dialog_title)
                 .setMessage(R.string.confirm_delete_dialog_message)
                 .setPositiveButton(android.R.string.ok,
@@ -457,11 +452,11 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
 
     private AlertDialog.Builder getInstallDialog(final String downloadId) {
         if (!isBatteryLevelOk()) {
-            Resources resources = mActivity.getResources();
+            Resources resources = mActivity.getInstance().getResources();
             String message = resources.getString(R.string.dialog_battery_low_message_pct,
                     resources.getInteger(R.integer.battery_ok_percentage_discharging),
                     resources.getInteger(R.integer.battery_ok_percentage_charging));
-            return new AlertDialog.Builder(mActivity)
+            return new AlertDialog.Builder(mActivity.getInstance())
                     .setTitle(R.string.dialog_battery_low_title)
                     .setMessage(message)
                     .setPositiveButton(android.R.string.ok, null);
@@ -479,41 +474,41 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
             return null;
         }
 
-        String buildDate = StringGenerator.getDateLocalizedUTC(mActivity,
+        String buildDate = StringGenerator.getDateLocalizedUTC(mActivity.getInstance(),
                 DateFormat.MEDIUM, update.getTimestamp());
-        String buildInfoText = mActivity.getString(R.string.list_build_version_date,
+        String buildInfoText = mActivity.getInstance().getString(R.string.list_build_version_date,
                 update.getVersion(), buildDate);
-        return new AlertDialog.Builder(mActivity)
+        return new AlertDialog.Builder(mActivity.getInstance())
                 .setTitle(R.string.apply_update_dialog_title)
-                .setMessage(mActivity.getString(resId, buildInfoText,
-                        mActivity.getString(android.R.string.ok)))
+                .setMessage(mActivity.getInstance().getString(resId, buildInfoText,
+                        mActivity.getInstance().getString(android.R.string.ok)))
                 .setPositiveButton(android.R.string.ok,
                         (dialog, which) -> {
-                            Utils.triggerUpdate(mActivity, downloadId);
+                            Utils.triggerUpdate(mActivity.getInstance(), downloadId);
                             maybeShowInfoDialog();
                         })
                 .setNegativeButton(android.R.string.cancel, null);
     }
 
     private AlertDialog.Builder getCancelInstallationDialog() {
-        return new AlertDialog.Builder(mActivity)
+        return new AlertDialog.Builder(mActivity.getInstance())
                 .setMessage(R.string.cancel_installation_dialog_message)
                 .setPositiveButton(android.R.string.ok,
                         (dialog, which) -> {
-                            Intent intent = new Intent(mActivity, UpdaterService.class);
+                            Intent intent = new Intent(mActivity.getInstance(), UpdaterService.class);
                             intent.setAction(UpdaterService.ACTION_INSTALL_STOP);
-                            mActivity.startService(intent);
+                            mActivity.getInstance().startService(intent);
                         })
                 .setNegativeButton(android.R.string.cancel, null);
     }
 
     private void maybeShowInfoDialog() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mActivity);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(mActivity.getInstance());
         boolean alreadySeen = preferences.getBoolean(Constants.HAS_SEEN_INFO_DIALOG, false);
         if (alreadySeen) {
             return;
         }
-        new AlertDialog.Builder(mActivity)
+        new AlertDialog.Builder(mActivity.getInstance())
                 .setTitle(R.string.info_dialog_title)
                 .setMessage(R.string.info_dialog_message)
                 .setPositiveButton(R.string.info_dialog_ok, (dialog, which) -> preferences.edit()
@@ -526,7 +521,7 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
         mSelectedDownload = update.getDownloadId();
         notifyItemChanged(update.getDownloadId());
 
-        ContextThemeWrapper wrapper = new ContextThemeWrapper(mActivity,
+        ContextThemeWrapper wrapper = new ContextThemeWrapper(mActivity.getInstance(),
                 R.style.PopupMenuOverlapAnchor);
         PopupMenu popupMenu = new PopupMenu(wrapper, anchor, Gravity.NO_GRAVITY,
                 androidx.appcompat.R.attr.actionOverflowMenuStyle, 0);
@@ -544,10 +539,10 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
                 getDeleteDialog(update.getDownloadId()).show();
                 return true;
             } else if (itemId == R.id.menu_copy_url) {
-                Utils.addToClipboard(mActivity,
-                        mActivity.getString(R.string.label_download_url),
+                Utils.addToClipboard(mActivity.getInstance(),
+                        mActivity.getInstance().getString(R.string.label_download_url),
                         update.getDownloadUrl(),
-                        mActivity.getString(R.string.toast_download_url_copied));
+                        mActivity.getInstance().getString(R.string.toast_download_url_copied));
                 return true;
             } else if (itemId == R.id.menu_export_update) {
                 if (mActivity != null) {
@@ -563,15 +558,15 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
     }
 
     private void showInfoDialog() {
-        String messageString = String.format(StringGenerator.getCurrentLocale(mActivity),
-                mActivity.getString(R.string.blocked_update_dialog_message),
-                Utils.getUpgradeBlockedURL(mActivity));
+        String messageString = String.format(StringGenerator.getCurrentLocale(mActivity.getInstance()),
+                mActivity.getInstance().getString(R.string.blocked_update_dialog_message),
+                Utils.getUpgradeBlockedURL(mActivity.getInstance()));
         SpannableString message = new SpannableString(messageString);
         Linkify.addLinks(message, Linkify.WEB_URLS);
         if (infoDialog != null) {
             infoDialog.dismiss();
         }
-        infoDialog = new AlertDialog.Builder(mActivity)
+        infoDialog = new AlertDialog.Builder(mActivity.getInstance())
                 .setTitle(R.string.blocked_update_dialog_title)
                 .setPositiveButton(android.R.string.ok, null)
                 .setMessage(message)
@@ -583,7 +578,7 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
     }
 
     private boolean isBatteryLevelOk() {
-        Intent intent = mActivity.registerReceiver(null,
+        Intent intent = mActivity.getInstance().registerReceiver(null,
                 new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
         if (!intent.getBooleanExtra(BatteryManager.EXTRA_PRESENT, false)) {
             return true;
@@ -592,8 +587,8 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
                 intent.getIntExtra(BatteryManager.EXTRA_SCALE, 100));
         int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
         int required = (plugged & BATTERY_PLUGGED_ANY) != 0 ?
-                mActivity.getResources().getInteger(R.integer.battery_ok_percentage_charging) :
-                mActivity.getResources().getInteger(R.integer.battery_ok_percentage_discharging);
+                mActivity.getInstance().getResources().getInteger(R.integer.battery_ok_percentage_charging) :
+                mActivity.getInstance().getResources().getInteger(R.integer.battery_ok_percentage_discharging);
         return percent >= required;
     }
 }

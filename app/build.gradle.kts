@@ -71,6 +71,7 @@ dependencies {
     implementation("io.github.oneuiproject.sesl:material:1.5.0") {
         exclude(group = "io.github.oneuiproject.sesl", module = "viewpager2")
     }
+    implementation("io.github.oneuiproject.sesl:preference:1.1.0")
     // AndroidX: https://developer.android.com/jetpack/androidx/versions
     implementation("androidx.core:core-ktx:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -80,4 +81,5 @@ dependencies {
 
     implementation(project(":oneui:oneui"))
     implementation(project(":ota:ota"))
+    compileOnly(project(":ota:stub"))
 }

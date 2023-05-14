@@ -123,23 +123,27 @@ public class UpdatesCheckReceiver extends BroadcastReceiver {
     }
 
     private static void showNotification(Context context) {
-        NotificationManager notificationManager = context.getSystemService(
-                NotificationManager.class);
-        NotificationChannel notificationChannel = new NotificationChannel(
-                NEW_UPDATES_NOTIFICATION_CHANNEL,
-                context.getString(R.string.new_updates_channel_title),
-                NotificationManager.IMPORTANCE_LOW);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context,
-                NEW_UPDATES_NOTIFICATION_CHANNEL);
-        notificationBuilder.setSmallIcon(R.drawable.ic_system_update);
-        Intent notificationIntent = new Intent(context, UpdatesActivity.class);
-        PendingIntent intent = PendingIntent.getActivity(context, 0, notificationIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        notificationBuilder.setContentIntent(intent);
-        notificationBuilder.setContentTitle(context.getString(R.string.new_updates_found_title));
-        notificationBuilder.setAutoCancel(true);
-        notificationManager.createNotificationChannel(notificationChannel);
-        notificationManager.notify(0, notificationBuilder.build());
+        try {
+            NotificationManager notificationManager = context.getSystemService(
+                    NotificationManager.class);
+            NotificationChannel notificationChannel = new NotificationChannel(
+                    NEW_UPDATES_NOTIFICATION_CHANNEL,
+                    context.getString(R.string.new_updates_channel_title),
+                    NotificationManager.IMPORTANCE_LOW);
+            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context,
+                    NEW_UPDATES_NOTIFICATION_CHANNEL);
+            notificationBuilder.setSmallIcon(R.drawable.ic_system_update);
+            Intent notificationIntent = new Intent(context, Class.forName("io.mesalabs.choidujour.ui.activity.UpdatesActivity"));
+            PendingIntent intent = PendingIntent.getActivity(context, 0, notificationIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+            notificationBuilder.setContentIntent(intent);
+            notificationBuilder.setContentTitle(context.getString(R.string.new_updates_found_title));
+            notificationBuilder.setAutoCancel(true);
+            notificationManager.createNotificationChannel(notificationChannel);
+            notificationManager.notify(0, notificationBuilder.build());
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static PendingIntent getRepeatingUpdatesCheckIntent(Context context) {
