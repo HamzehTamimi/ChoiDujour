@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.mesalabs.choidujour.ui.widget
+package io.mesalabs.oneui.support.widget
 
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -30,7 +30,7 @@ import android.widget.LinearLayout
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 
-import io.mesalabs.choidujour.R
+import io.mesalabs.oneui.R
 
 class ListItemView @JvmOverloads constructor(
     context: Context,
@@ -88,13 +88,24 @@ class ListItemView @JvmOverloads constructor(
         gravity = Gravity.CENTER_VERTICAL
 
         orientation = HORIZONTAL
-        inflate(context, R.layout.view_list_item_layout, this)
+        inflate(context, R.layout.oui_view_list_item_layout, this)
 
         iconContainer = findViewById(R.id.list_item_icon_container)
         iconImageView = findViewById(R.id.list_item_icon)
         titleTextView = findViewById(R.id.list_item_title)
         summaryTextView = findViewById(R.id.list_item_summary)
         badgeContainer = findViewById(R.id.list_item_badge_container)
+
+        setStyleable(context, attrs)
+    }
+
+    private fun setStyleable(context: Context, attrs: AttributeSet?) {
+        val a = context.obtainStyledAttributes(attrs, R.styleable.ListItemView)
+        icon = a.getDrawable(R.styleable.ListItemView_icon)
+        title = a.getString(R.styleable.ListItemView_title)
+        summary = a.getString(R.styleable.ListItemView_summary)
+        showBadge = a.getBoolean(R.styleable.ListItemView_showBadge, false)
+        a.recycle()
     }
 
     var icon: Drawable? = null

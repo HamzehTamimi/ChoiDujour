@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package io.mesalabs.choidujour.ui.widget
+package io.mesalabs.oneui.support.widget
 
 import android.content.Context
 import android.graphics.Canvas
@@ -24,7 +24,7 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
 
-import io.mesalabs.oneui.support.widget.RoundedLinearLayout
+import io.mesalabs.oneui.R
 
 class ListContainer @JvmOverloads constructor(
     context: Context,
@@ -33,23 +33,30 @@ class ListContainer @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : RoundedLinearLayout(context, attrs, defStyleAttr, defStyleRes) {
     private val divider: Drawable
+    private val showDivider: Boolean
 
     init {
         orientation = VERTICAL
-        divider = context.getDrawable(io.mesalabs.oneui.R.drawable.sep_list_divider)!!
+        divider = context.getDrawable(R.drawable.sep_list_divider)!!
+
+        val a = context.obtainStyledAttributes(attrs, R.styleable.ListContainer)
+        showDivider = a.getBoolean(R.styleable.ListContainer_showDivider, true)
+        a.recycle()
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        for (i in 0 until childCount) {
-            val child: View = getChildAt(i)
+        if (showDivider) {
+            for (i in 0 until childCount) {
+                val child: View = getChildAt(i)
 
-            val top: Int = (child.bottom
-                    + (child.layoutParams as MarginLayoutParams).bottomMargin)
-            val bottom: Int = divider.intrinsicHeight + top
-            divider.setBounds(left, top, right, bottom)
-            divider.draw(canvas)
+                val top: Int = (child.bottom
+                        + (child.layoutParams as MarginLayoutParams).bottomMargin)
+                val bottom: Int = divider.intrinsicHeight + top
+                divider.setBounds(left, top, right, bottom)
+                divider.draw(canvas)
+            }
         }
     }
 }

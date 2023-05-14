@@ -46,7 +46,7 @@
             <View
                 android:layout_width="6.0dp"
                 android:layout_height="6.0dp"
-                android:background="@drawable/list_item_dot_badge" />
+                android:background="@drawable/sep_list_item_dot_badge" />
 
         </FrameLayout>
 
