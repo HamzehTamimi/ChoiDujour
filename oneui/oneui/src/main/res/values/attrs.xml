@@ -30,6 +30,9 @@
     <declare-styleable name="RoundedLinearLayout">
         <attr name="roundedCorners" />
     </declare-styleable>
+    <declare-styleable name="RoundedNestedScrollView">
+        <attr name="roundedCorners" />
+    </declare-styleable>
     <declare-styleable name="SwitchBar">
         <attr name="switchBarBackgroundActivatedColor" format="color" />
         <attr name="switchBarBackgroundColor" format="color" />
