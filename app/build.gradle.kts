@@ -73,7 +73,7 @@ dependencies {
     }
     implementation("io.github.oneuiproject.sesl:preference:1.1.0")
     // AndroidX: https://developer.android.com/jetpack/androidx/versions
-    implementation("androidx.core:core-ktx:1.10.0")
+    implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.viewpager2:viewpager2:1.0.0") {
         exclude(group = "androidx.recyclerview", module = "recyclerview")
