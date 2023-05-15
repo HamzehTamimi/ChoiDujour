@@ -1,0 +1,6 @@
+<resources>
+
+    <!-- UpdateStatusView -->
+    <color name="update_status_view_main_text_color">#fffafafa</color>
+
+</resources>

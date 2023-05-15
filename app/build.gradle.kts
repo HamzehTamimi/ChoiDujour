@@ -78,6 +78,8 @@ dependencies {
     implementation("androidx.viewpager2:viewpager2:1.0.0") {
         exclude(group = "androidx.recyclerview", module = "recyclerview")
     }
+    // Lottie: https://github.com/airbnb/lottie-android
+    implementation("com.airbnb.android:lottie:6.0.0")
 
     implementation(project(":oneui:oneui"))
     implementation(project(":ota:ota"))

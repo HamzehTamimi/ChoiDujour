@@ -1,0 +1,7 @@
+<resources>
+
+    <!-- UpdateStatusView -->
+    <color name="update_status_view_icon_color">@color/sep_theme_primary_color</color>
+    <color name="update_status_view_main_text_color">#ff252525</color>
+
+</resources>
