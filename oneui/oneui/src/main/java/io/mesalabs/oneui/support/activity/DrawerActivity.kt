@@ -83,10 +83,9 @@ open class DrawerActivity : AbsAppBarActivity() {
         }
 
         super.navigationButtonIcon = getDrawable(R.drawable.tw_ic_ab_drawer_mtrl)
-        // TODO add localized string
-        super.setNavigationButtonTooltip("Open drawer sar")
+        super.setNavigationButtonTooltip(getString(R.string.sep_show_navigation_menu))
         super.setNavigationButtonOnClickListener {
-            openDrawer(true, true)
+            openDrawer(open = true, animate = true)
         }
 
         mBinding.drawerLayout.setScrimColor(getColor(R.color.sep_drawerlayout_drawer_dim_color))
