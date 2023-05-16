@@ -170,8 +170,8 @@ class UpdateStatusView @JvmOverloads constructor(
                         PorterDuffColorFilter(iconTintColor, PorterDuff.Mode.SRC_IN)
                     }
                     lottieIconView.speed = 0.7f
-                    lottieIconView.scaleX = 1.4f
-                    lottieIconView.scaleY = 1.4f
+                    lottieIconView.scaleX = 1.35f
+                    lottieIconView.scaleY = 1.35f
                     lottieIconView.setMinAndMaxProgress(0.0f, 1.0f)
                     lottieIconView.playAnimation()
                 }
@@ -187,8 +187,8 @@ class UpdateStatusView @JvmOverloads constructor(
                         PorterDuffColorFilter(iconTintColor, PorterDuff.Mode.SRC_IN)
                     }
                     lottieIconView.speed = 0.6f
-                    lottieIconView.scaleX = 1.33f
-                    lottieIconView.scaleY = 1.33f
+                    lottieIconView.scaleX = 1.3f
+                    lottieIconView.scaleY = 1.3f
                     lottieIconView.setMinAndMaxProgress(0.55f, 1.0f)
                     lottieIconView.playAnimation()
                 }
