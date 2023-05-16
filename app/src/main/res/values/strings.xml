@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ChoiDujour</string>
+
+    <!-- UpdateStatusView -->
+    <string name="usv_no_updates">ROM is up to date.</string>
+    <string name="usv_new_version_available">A new update is available.</string>
+    <string name="usv_error">An error happened.</string>
+    <string name="usv_downloaded">Update ready to install.</string>
 </resources>

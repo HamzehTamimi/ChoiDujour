@@ -128,8 +128,7 @@ class UpdateStatusView @JvmOverloads constructor(
         when (status) {
             STATE_NO_UPDATES -> {
                 icon = "USV_no_updates.json"
-                // TODO add localized string
-                text = "ROM is up to date."
+                text = context.getString(R.string.usv_no_updates)
                 listener = LottieListener<LottieComposition> {
                     lottieIconView.setComposition(it)
                     lottieIconView.addValueCallback(
@@ -146,8 +145,7 @@ class UpdateStatusView @JvmOverloads constructor(
 
             STATE_NEW_VERSION_AVAILABLE -> {
                 icon = "USV_new_version_available.json"
-                // TODO add localized string
-                text = "A new update is available."
+                text = context.getString(R.string.usv_new_version_available)
                 listener = LottieListener<LottieComposition> {
                     lottieIconView.setComposition(it)
                     lottieIconView.addValueCallback(
@@ -164,8 +162,7 @@ class UpdateStatusView @JvmOverloads constructor(
 
             STATE_ERROR -> {
                 icon = "USV_error.json"
-                // TODO add localized string
-                text = "An error happened."
+                text = context.getString(R.string.usv_error)
                 listener = LottieListener<LottieComposition> {
                     lottieIconView.setComposition(it)
                     lottieIconView.addValueCallback(
@@ -182,8 +179,7 @@ class UpdateStatusView @JvmOverloads constructor(
 
             STATE_DOWNLOADED -> {
                 icon = "USV_downloaded.json"
-                // TODO add localized string
-                text = "Update ready to install."
+                text = context.getString(R.string.usv_downloaded)
                 listener = LottieListener<LottieComposition> {
                     lottieIconView.setComposition(it)
                     lottieIconView.addValueCallback(
