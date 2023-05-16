@@ -25,6 +25,7 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
+import androidx.annotation.ColorInt
 
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.SeslProgressBar
@@ -65,6 +66,8 @@ class UpdateStatusView @JvmOverloads constructor(
     private val lottieIconView: LottieAnimationView
     private val textView: AppCompatTextView
 
+    @ColorInt private val iconTintColor: Int
+
     init {
         removeAllViews()
 
@@ -102,12 +105,16 @@ class UpdateStatusView @JvmOverloads constructor(
         textView = findViewById(R.id.status_text)
 
         textView.typeface = TypefaceUtils.getBoldSupportTypeface()
+
+        iconTintColor = context.getColor(R.color.update_status_view_icon_color)
     }
 
     fun setUpdateStatus(status: Int) {
         if (status == STATE_CHECKING) {
             statusContainer.visibility = GONE
             progressBar.visibility = VISIBLE
+            lottieIconView.setImageDrawable(null)
+            textView.text = null
             return
         } else {
             progressBar.visibility = GONE
@@ -127,9 +134,7 @@ class UpdateStatusView @JvmOverloads constructor(
                     lottieIconView.setComposition(it)
                     lottieIconView.addValueCallback(
                         KeyPath("**"), LottieProperty.COLOR_FILTER) {
-                        PorterDuffColorFilter(
-                            context.getColor(R.color.update_status_view_icon_color),
-                            PorterDuff.Mode.SRC_IN)
+                        PorterDuffColorFilter(iconTintColor, PorterDuff.Mode.SRC_IN)
                     }
                     lottieIconView.speed = 0.7f
                     lottieIconView.scaleX = 1.4f
@@ -147,9 +152,7 @@ class UpdateStatusView @JvmOverloads constructor(
                     lottieIconView.setComposition(it)
                     lottieIconView.addValueCallback(
                         KeyPath("**"), LottieProperty.COLOR_FILTER) {
-                        PorterDuffColorFilter(
-                            context.getColor(R.color.update_status_view_icon_color),
-                            PorterDuff.Mode.SRC_IN)
+                        PorterDuffColorFilter(iconTintColor, PorterDuff.Mode.SRC_IN)
                     }
                     lottieIconView.speed = 1.0f
                     lottieIconView.scaleX = 1.25f
@@ -167,9 +170,7 @@ class UpdateStatusView @JvmOverloads constructor(
                     lottieIconView.setComposition(it)
                     lottieIconView.addValueCallback(
                         KeyPath("**"), LottieProperty.COLOR_FILTER) {
-                        PorterDuffColorFilter(
-                            context.getColor(R.color.update_status_view_icon_color),
-                            PorterDuff.Mode.SRC_IN)
+                        PorterDuffColorFilter(iconTintColor, PorterDuff.Mode.SRC_IN)
                     }
                     lottieIconView.speed = 0.7f
                     lottieIconView.scaleX = 1.4f
@@ -180,16 +181,14 @@ class UpdateStatusView @JvmOverloads constructor(
             }
 
             STATE_DOWNLOADED -> {
-                icon = "satt.json"
+                icon = "USV_downloaded.json"
                 // TODO add localized string
                 text = "Update ready to install."
                 listener = LottieListener<LottieComposition> {
                     lottieIconView.setComposition(it)
                     lottieIconView.addValueCallback(
                         KeyPath("**"), LottieProperty.COLOR_FILTER) {
-                        PorterDuffColorFilter(
-                            context.getColor(R.color.update_status_view_icon_color),
-                            PorterDuff.Mode.SRC_IN)
+                        PorterDuffColorFilter(iconTintColor, PorterDuff.Mode.SRC_IN)
                     }
                     lottieIconView.speed = 0.6f
                     lottieIconView.scaleX = 1.33f
