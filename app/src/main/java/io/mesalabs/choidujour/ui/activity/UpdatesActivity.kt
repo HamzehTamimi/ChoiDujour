@@ -162,7 +162,7 @@ class UpdatesActivity : AppBarActivity(), UpdatesListActivity {
         setAppBarCustomSubtitleView(subTitleView)
 
         refreshAnimation = RotateAnimation(
-            0.0f, 360.0f,
+            360.0f, 0.0f,
             Animation.RELATIVE_TO_SELF, 0.5f,
             Animation.RELATIVE_TO_SELF, 0.5f
         )
