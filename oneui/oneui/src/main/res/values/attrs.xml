@@ -16,6 +16,7 @@
         <attr name="showDivider" format="boolean" />
     </declare-styleable>
     <declare-styleable name="ListItemView">
+        <attr name="android:enabled" />
         <attr name="icon" format="reference" />
         <attr name="title" format="string" />
         <attr name="summary" format="string" />

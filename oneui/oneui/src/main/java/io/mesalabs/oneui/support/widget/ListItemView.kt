@@ -101,6 +101,7 @@ class ListItemView @JvmOverloads constructor(
 
     private fun setStyleable(context: Context, attrs: AttributeSet?) {
         val a = context.obtainStyledAttributes(attrs, R.styleable.ListItemView)
+        isEnabled = a.getBoolean(R.styleable.ListItemView_android_enabled, true)
         icon = a.getDrawable(R.styleable.ListItemView_icon)
         title = a.getString(R.styleable.ListItemView_title)
         summary = a.getString(R.styleable.ListItemView_summary)
@@ -150,4 +151,9 @@ class ListItemView @JvmOverloads constructor(
                 badgeContainer.visibility = if (show) VISIBLE else GONE
             }
         }
+
+    override fun setEnabled(enabled: Boolean) {
+        super.setEnabled(enabled)
+        alpha = if (enabled) 1.0f else 0.4f
+    }
 }
