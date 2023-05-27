@@ -433,8 +433,8 @@ class UpdatesActivity : AppBarActivity(), UpdatesListActivity {
             org.lineageos.updater.R.id.preferences_auto_updates_check_interval)
         val autoDelete = view.findViewById<SwitchCompat>(
             org.lineageos.updater.R.id.preferences_auto_delete_updates)
-        val dataWarning = view.findViewById<SwitchCompat>(
-            org.lineageos.updater.R.id.preferences_mobile_data_warning)
+        val meteredNetworkWarning = view.findViewById<SwitchCompat>(
+            org.lineageos.updater.R.id.preferences_metered_network_warning)
         val updateRecovery = view.findViewById<SwitchCompat>(
             org.lineageos.updater.R.id.preferences_update_recovery)
 
@@ -442,8 +442,8 @@ class UpdatesActivity : AppBarActivity(), UpdatesListActivity {
         autoCheckInterval.setSelection(Utils.getUpdateCheckSetting(this))
         autoDelete.isChecked =
             prefs.getBoolean(Constants.PREF_AUTO_DELETE_UPDATES, false)
-        dataWarning.isChecked =
-            prefs.getBoolean(Constants.PREF_MOBILE_DATA_WARNING, true)
+        meteredNetworkWarning.isChecked =
+            prefs.getBoolean(Constants.PREF_METERED_NETWORK_WARNING, true)
 
         if (resources.getBoolean(org.lineageos.updater.R.bool.config_hideRecoveryUpdate)) {
             // Hide the update feature if explicitly requested.
@@ -487,8 +487,8 @@ class UpdatesActivity : AppBarActivity(), UpdatesListActivity {
                         autoCheckInterval.selectedItemPosition)
                     .putBoolean(Constants.PREF_AUTO_DELETE_UPDATES,
                         autoDelete.isChecked)
-                    .putBoolean(Constants.PREF_MOBILE_DATA_WARNING,
-                        dataWarning.isChecked)
+                    .putBoolean(Constants.PREF_METERED_NETWORK_WARNING,
+                        meteredNetworkWarning.isChecked)
                     .apply()
                 if (Utils.isUpdateCheckEnabled(this)) {
                     UpdatesCheckReceiver.scheduleRepeatingUpdatesCheck(this)
