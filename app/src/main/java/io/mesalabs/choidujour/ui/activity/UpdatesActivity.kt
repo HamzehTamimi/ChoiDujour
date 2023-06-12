@@ -144,7 +144,7 @@ class UpdatesActivity : AppBarActivity(), UpdatesListActivity {
         defaultHomeAsUp()
 
         appBarTitleExpanded = getString(org.lineageos.updater.R.string.header_title_text,
-            BuildInfoUtils.getBuildVersion())
+            Utils.getDisplayVersion(BuildInfoUtils.getBuildVersion()))
 
         updateLastCheckedString()
 

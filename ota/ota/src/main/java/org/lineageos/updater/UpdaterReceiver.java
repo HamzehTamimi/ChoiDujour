@@ -31,6 +31,7 @@ import androidx.preference.PreferenceManager;
 import org.lineageos.updater.misc.BuildInfoUtils;
 import org.lineageos.updater.misc.Constants;
 import org.lineageos.updater.misc.StringGenerator;
+import org.lineageos.updater.misc.Utils;
 
 import java.text.DateFormat;
 
@@ -61,7 +62,7 @@ public class UpdaterReceiver extends BroadcastReceiver {
         String buildDate = StringGenerator.getDateLocalizedUTC(context,
                 DateFormat.MEDIUM, preferences.getLong(Constants.PREF_INSTALL_NEW_TIMESTAMP, 0));
         String buildInfo = context.getString(R.string.list_build_version_date,
-                BuildInfoUtils.getBuildVersion(), buildDate);
+                Utils.getDisplayVersion(BuildInfoUtils.getBuildVersion()), buildDate);
 
         try {
             Intent notificationIntent = new Intent(context, Class.forName("io.mesalabs.choidujour.ui.activity.UpdatesActivity"));

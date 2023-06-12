@@ -271,7 +271,7 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
         String buildDate = StringGenerator.getDateLocalizedUTC(mActivity.getInstance(),
                 DateFormat.LONG, update.getTimestamp());
         String buildVersion = mActivity.getInstance().getString(R.string.list_build_version,
-                update.getVersion());
+                Utils.getDisplayVersion(update.getVersion()));
         viewHolder.mBuildDate.setText(buildDate);
         viewHolder.mBuildVersion.setText(buildVersion);
         viewHolder.mBuildVersion.setCompoundDrawables(null, null, null, null);
