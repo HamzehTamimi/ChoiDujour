@@ -53,14 +53,20 @@ open class RoundedNestedScrollView @JvmOverloads constructor(
         mRoundedCorner.drawRoundedCorner(canvas)
     }
 
+    fun getRoundedCorners(): Int =
+        mRoundedCorner.roundedCorners
+
     fun setRoundedCorners(@IntRange(from = 0, to = 15) corners: Int) {
         mRoundedCorner.roundedCorners = corners
         invalidate()
     }
 
-    fun setRoundedCornersColor(@IntRange(from = 0, to = 15) corners: Int,
+    fun getRoundedCornersColor(@IntRange(from = 0, to = 15) corner: Int): Int =
+        mRoundedCorner.getRoundedCornerColor(corner)
+
+    fun setRoundedCornersColor(@IntRange(from = 0, to = 15) corner: Int,
                                @ColorInt color: Int) {
-        mRoundedCorner.setRoundedCornerColor(corners, color)
+        mRoundedCorner.setRoundedCornerColor(corner, color)
         invalidate()
     }
 }
